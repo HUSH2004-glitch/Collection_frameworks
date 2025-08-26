@@ -10,7 +10,7 @@ class node {
 }
 
 public class My_linked_list {
-    node head; // initially when the objec to fhte class is declared its value is by defualt null
+    node head; // initially, when the object to the class is declared, its value is by defualt null
 
     // method for addition of node
     void add(int data) {
@@ -30,8 +30,8 @@ public class My_linked_list {
         }
     }
 
-    //remove the linkedList
-    void remove(int data) {
+    //remove
+    void remove_by_data(int data) {
         if (head == null) return;
 
         if (head.data == data) {
@@ -47,10 +47,16 @@ public class My_linked_list {
         }
     }
 
+
     void add_first(int data) {
         node new_node = new node(data);
-        new_node.next = head;
-        head = new_node;
+        if (head == null) {// empty list
+            head = new_node;
+
+        } else {
+            new_node.next = head;
+            head = new_node;
+        }
     }
 
     void display() {
@@ -63,33 +69,70 @@ public class My_linked_list {
     }
 
     //for checking the length of the list
-    void length() {
+    int length() {
         node temp = head;
         int count = 0;
         while (temp != null) {
-            System.out.println(temp.data + " ");
             temp = temp.next;
             count++;
         }
-        System.out.println("Length : " + count);
+        return count;
     }
 
     // method for adding the function at the last
-    void add_at_last(int data){
+    void add_at_last(int data) {
         node new_node = new node(data);
 
-        if(head == null){
+        if (head == null) {
             head = new_node;
-        }
-        else {
+        } else {
             node temp = head;
-            while(temp.next != null){
+            while (temp.next != null) {
                 temp = temp.next;
             }
             temp.next = new_node;
         }
     }
 
+    //insert at particular index
+    void insert_at(int index, int data) {
+        node new_node = new node(data);
+        node temp = head;
+        if (index == 0) {
+            add_first(data);
+            return;
+        }
+        if (index == length()) {
+            add_at_last(data);
+            return;
+        }
+        for (int i = 0; i <= index - 1; i++) {
+            temp = temp.next;
+        }
+        new_node.next = temp.next;
+        temp.next = new_node;
+    }
 
+    int get_by_data(int data) {
+        node temp = head;
+        while (temp.next != null) {
+            if (temp.data == data) {
+                return data;
+            }
+            temp = temp.next;
+
+        }
+        return -1;
+    }
+
+    //fetching node by index;
+    int get_by_index(int index){
+        node temp = head;
+        for(int i=0 ;i<=index;i++){
+            temp = temp.next;
+
+        }
+        return temp.data;
+    }
 }
 
