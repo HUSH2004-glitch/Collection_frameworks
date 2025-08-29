@@ -1,11 +1,20 @@
+import org.w3c.dom.Node;
 
 class node {
     int data;
     node next;
 
+    node() {
+    }
+
     node(int data) {
         this.data = data;
         this.next = null;
+    }
+
+    @Override
+    public String toString() {
+        return " " + this.data;
     }
 }
 
@@ -47,6 +56,14 @@ public class My_linked_list {
         }
     }
 
+    // REMOVE BY NODE AS PARAMETER
+    void delete_node(node abc) {
+        if (abc == null || abc.next == null) {
+            throw new RuntimeException("can't delete the node");
+        }
+        abc.data = abc.next.data;
+        abc.next = abc.next.next;
+    }
 
     void add_first(int data) {
         node new_node = new node(data);
@@ -65,7 +82,8 @@ public class My_linked_list {
             System.out.print(temp.data + " - >");
             temp = temp.next;
         }
-        System.out.println("null");
+        System.out.println("\n");
+
     }
 
     //for checking the length of the list
@@ -126,13 +144,63 @@ public class My_linked_list {
     }
 
     //fetching node by index;
-    int get_by_index(int index){
+    int get_by_index(int index) {
         node temp = head;
-        for(int i=0 ;i<=index;i++){
+        for (int i = 0; i <= index; i++) {
             temp = temp.next;
 
         }
         return temp.data;
     }
+
+    // printing the node  by index form the start
+    void get_by_node(int index) {
+        node temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
+        }
+        System.out.println("->" + temp.data);
+        ;
+    }
+
+    // getting the node by indexing backward
+    node get_node_by_reversing(int index) {
+        node temp = head;
+        int abc = (length() - 1) - index;
+
+        for (int i = 0; i < abc; i++) {
+            temp = temp.next;
+        }
+        return temp;
+    }
+
+    //finding the middle of the through single traversing
+    node middle() {
+        node slow = head;
+        node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+        }
+        return slow;
+    }
+
+    // deleting the middle node ... my way
+    void delete_middle() {
+        if (head == null || head.next == null) {
+            head = null;
+            return;
+        }
+        int length = length();
+        node temp = head;
+        int mid = length / 2;
+        System.out.println(mid);
+        for (int i = 0; i < mid - 2; i++) {
+            temp = temp.next;
+        }
+        temp.next = temp.next.next;
+    }
 }
+
 
